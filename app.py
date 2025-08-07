@@ -15,6 +15,10 @@ crear_tablas()
 st.set_page_config(page_title="Finanzas", layout="wide")
 aplicar_estilos()
 
+# Bloquea toda la app hasta que haya login
+if not require_login():
+    st.stop()
+
 # Menú principal
 st.sidebar.title("📁 Menú Principal")
 
