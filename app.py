@@ -1,6 +1,7 @@
 import streamlit as st
 import sqlite3
 from estilos import aplicar_estilos
+from auth import require_login
 from db import conectar_db, crear_tablas  # Importamos ambas funciones
 #from db import crear_tablas  # ⬅️ NUEVO
 
