@@ -3,6 +3,13 @@ import pandas as pd
 from datetime import datetime
 from estilos import aplicar_estilos
 
+try:
+    from estilos import aplicar_estilos
+except Exception:
+    # Fallback por si el import falla en la nube
+    def aplicar_estilos():
+        pass
+
 def gastos_modificar(conn):
     aplicar_estilos()
     st.title("📝 Modificar Gasto")

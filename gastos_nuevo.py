@@ -4,6 +4,13 @@ from datetime import datetime, date
 from estilos import aplicar_estilos
 import time
 
+try:
+    from estilos import aplicar_estilos
+except Exception:
+    # Fallback por si el import falla en la nube
+    def aplicar_estilos():
+        pass
+
 def gastos_nuevo(conn):
     st.set_page_config(layout="wide")
     aplicar_estilos()

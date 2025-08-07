@@ -4,6 +4,14 @@ from datetime import datetime
 from db import conectar_db
 from estilos import aplicar_estilos
 
+try:
+    from estilos import aplicar_estilos
+except Exception:
+    # Fallback por si el import falla en la nube
+    def aplicar_estilos():
+        pass
+
+
 def dashboard():
     st.set_page_config(layout="wide")
     aplicar_estilos()

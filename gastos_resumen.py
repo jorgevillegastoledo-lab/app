@@ -3,6 +3,13 @@ import pandas as pd
 from datetime import datetime, timedelta
 from estilos import aplicar_estilos
 
+try:
+    from estilos import aplicar_estilos
+except Exception:
+    # Fallback por si el import falla en la nube
+    def aplicar_estilos():
+        pass
+
 def gastos_resumen(conn):
     st.set_page_config(layout="wide")
     aplicar_estilos()

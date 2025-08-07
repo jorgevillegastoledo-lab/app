@@ -2,6 +2,13 @@ import streamlit as st
 import pandas as pd
 from estilos import aplicar_estilos
 
+try:
+    from estilos import aplicar_estilos
+except Exception:
+    # Fallback por si el import falla en la nube
+    def aplicar_estilos():
+        pass
+
 def tarjetas_gestion(conn):
     st.set_page_config(layout="wide")
     aplicar_estilos()

@@ -3,6 +3,13 @@ import pandas as pd
 from estilos import aplicar_estilos
 from datetime import datetime
 
+try:
+    from estilos import aplicar_estilos
+except Exception:
+    # Fallback por si el import falla en la nube
+    def aplicar_estilos():
+        pass
+
 def tarjetas_modificar(conn):
     st.set_page_config(layout="wide")
     aplicar_estilos()
