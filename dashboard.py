@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from db import conectar_db
-from estilos import aplicar_estilos
+#from estilos import aplicar_estilos
 
 def dashboard():
     st.set_page_config(layout="wide")
