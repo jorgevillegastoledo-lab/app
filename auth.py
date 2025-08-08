@@ -2,7 +2,6 @@
 import streamlit as st
 
 def require_login():
-    # Si ya hay sesión, ok
     if st.session_state.get("logged_in"):
         _logout_button()
         return True
@@ -17,24 +16,30 @@ def require_login():
         valid_user = st.secrets.get("APP_USER")
         valid_pass = st.secrets.get("APP_PASS")
 
-        if not valid_user or not valid_pass:
-            st.error("Faltan credenciales en *Secrets* (APP_USER / APP_PASS).")
-            return False
+        # Debug mínimo: mostrar qué keys de secrets existen (no sus valores)
+        if not (valid_user and valid_pass):
+            st.error("Faltan credenciales en Secrets (APP_USER / APP_PASS).")
+            st.caption(f"Secrets cargados: {list(st.secrets.keys())}")
+            st.stop()
 
         if user == valid_user and pwd == valid_pass:
             st.session_state["logged_in"] = True
             st.success("¡Bienvenido!")
-            st.experimental_rerun()
+            try:
+                st.rerun()                  # Streamlit >= 1.30
+            except Exception:
+                st.experimental_rerun()     # Compatibilidad retro
         else:
             st.error("Usuario o contraseña incorrectos.")
-            return False
+            st.stop()
 
-    # Bloquea el resto de la app hasta que inicie sesión
     st.stop()
 
 def _logout_button():
     with st.sidebar:
         if st.button("🚪 Cerrar sesión"):
-            for k in ("logged_in",):
-                st.session_state.pop(k, None)
-            st.experimental_rerun()
+            st.session_state.pop("logged_in", None)
+            try:
+                st.rerun()
+            except Exception:
+                st.experimental_rerun()
